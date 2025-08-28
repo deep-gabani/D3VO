@@ -1,3 +1,42 @@
+# Setup Instructions for evaluating D3VO on Tera Internal Flights
+```bash
+# clone the repo
+git clone https://github.com/deep-gabani/D3VO.git
+cd D3VO
+
+# create conda env
+conda create -n d3vo python=3.8.10
+conda activate d3vo
+
+# install necessary libraries
+apt-get install libsuitesparse-dev ffmpeg
+python3 -m pip install torch torchvision numpy pandas scipy matplotlib natsort opencv-python
+conda install -c conda-forge suitesparse
+export LD_LIBRARY_PATH=/root/miniconda3/envs/d3vo/lib:$LD_LIBRARY_PATH
+
+
+# download trained DepthNet and PoseNet weights (from the [drive](https://drive.google.com/drive/folders/176fuEVP1BVQlKQNXCp3wQE_kBK_ogOCT))
+mkdir weights && cd weights
+wget \
+    https://storage.googleapis.com/tera-public/algorithms-analysis-for-benchmarking/d3vo/weights/adam.pth \
+    https://storage.googleapis.com/tera-public/algorithms-analysis-for-benchmarking/d3vo/weights/depth.pth \
+    https://storage.googleapis.com/tera-public/algorithms-analysis-for-benchmarking/d3vo/weights/encoder.pth \
+    https://storage.googleapis.com/tera-public/algorithms-analysis-for-benchmarking/d3vo/weights/pose.pth
+cd ..
+
+# compile and install
+cd g2opy
+mkdir build && cd build
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 cmake ..
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 make -j8
+cd ..
+python setup.py install
+cd ..
+
+# Now you can go to poc.ipynb notebook and run D3VO on flights.
+```
+
+
 # D3VO
 
 16-833 Robot Localization and Mapping course project

@@ -32,7 +32,11 @@ def offline_vo(cap, weights_path, gt_path, save_path, out_dir):
 		if ret == True:
 			frame = cv2.resize(frame, (W, H))
 			print("\n*** frame %d/%d ***" % (i, CNT))
-			d3vo.process_frame(frame)
+			try:
+				d3vo.process_frame(frame)
+			except Exception as e:
+				print(f"Error processing frame {i}: {e}")
+				continue
 
 			# Run evaluation
 			if gt_path != "" and PER_FRAME_ERROR and len(d3vo.mp.frames) > 1:
