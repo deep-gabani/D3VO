@@ -9,10 +9,11 @@ conda create -n d3vo python=3.8.10
 conda activate d3vo
 
 # install necessary libraries
-apt-get install libsuitesparse-dev ffmpeg
+apt-get update
+apt-get install python3-dev libsuitesparse-dev ffmpeg cmake libeigen3-dev
 python3 -m pip install torch torchvision numpy pandas scipy matplotlib natsort opencv-python
 conda install -c conda-forge suitesparse
-export LD_LIBRARY_PATH=/root/miniconda3/envs/d3vo/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/root/miniconda3/envs/d3vo/lib:$LD_LIBRARY_PATH  # Change this path as per yours
 
 
 # download trained DepthNet and PoseNet weights (from the [drive](https://drive.google.com/drive/folders/176fuEVP1BVQlKQNXCp3wQE_kBK_ogOCT))

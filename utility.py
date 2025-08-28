@@ -18,7 +18,7 @@ from natsort import natsorted
 from scipy.optimize import minimize_scalar
 from scipy.spatial.transform import Rotation as R
 
-from kitti_odometry import KittiEvalOdom
+from src.kitti_odometry import KittiEvalOdom
 
 # ===== eval_plots.py Functions =====
 
