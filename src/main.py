@@ -36,6 +36,7 @@ def offline_vo(cap, weights_path, gt_path, save_path, out_dir):
 				d3vo.process_frame(frame)
 			except Exception as e:
 				print(f"Error processing frame {i}: {e}")
+				i += 1
 				continue
 
 			# Run evaluation
